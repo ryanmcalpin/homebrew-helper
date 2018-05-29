@@ -1,9 +1,10 @@
 # homebrew-helper
 A collection of tools to help with homebrewing beer, cider, mead, and wine. Made with React Native.
 
-## Requirements
+## Tools
 * Node.js
 * React Native
+* create-react-native-app
 
 ## Setup
 * Download or clone directory
@@ -16,4 +17,4 @@ A collection of tools to help with homebrewing beer, cider, mead, and wine. Made
 
 ## Legal
 Copyright (c) 2018 Copyright Ryan McAlpin, All Rights Reserved.<br>
-This web app is licensed under the MIT license.
+This app is licensed under the MIT license.
