@@ -34,7 +34,7 @@ class TempConversionScreen extends React.Component {
   calculate(tempF) {
     let temp = ((tempF - 32) / 1.8).toFixed(1);
     temp.slice(-1) == "0" ? temp = temp.slice(0, -2) : null;
-    temp == "NaN" && tempF.length > 1 ? temp = "oops" : null;
+    temp == "NaN" && tempF.length > 1 ? temp = "oops!" : null;
     tempF == "." || tempF == "-" || tempF == "-." ? temp = "" : null;
     this.setState({temp});
   }
@@ -45,26 +45,27 @@ class TempConversionScreen extends React.Component {
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <TextInput
             style={{
-              flex: 4,
+              flex: 6,
               fontSize: 72,
               textAlign: 'center',
             }}
             keyboardType='numeric'
+            maxLength={5}
             onChangeText={(temp) => temp == '' ? this.setState({temp}) : this.calculate(temp)}
             />
           <Text
             style={{
-              flex: 1,
+              flex: 2,
               fontSize: 72,
               textAlign: 'center',
             }}>
-            F
+            &#176;F
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Text style={{
               backgroundColor: 'lightgrey',
-              flex: 4,
+              flex: 6,
               fontSize: 72,
               textAlign: 'center',
             }}>
@@ -72,11 +73,11 @@ class TempConversionScreen extends React.Component {
           </Text>
           <Text
             style={{
-              flex: 1,
+              flex: 2,
               fontSize: 72,
               textAlign: 'center',
             }}>
-            C
+            &#176;C
           </Text>
         </View>
       <View style={{ flex: 3 }}>
@@ -102,7 +103,7 @@ const RootStack = createStackNavigator({
   AnotherOne: AnotherOneScreen,
 },
 {
-  initialRouteName: 'TempConversion',
+  initialRouteName: 'Home',
 });
 
 export default class App extends React.Component {
