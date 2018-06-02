@@ -32,32 +32,53 @@ class TempConversionScreen extends React.Component {
   }
 
   calculate(tempF) {
-    let temp = ((tempF - 32) / 1.8).toFixed(1)
-    this.setState({temp})
+    let temp = ((tempF - 32) / 1.8).toFixed(1);
+    temp.slice(-1) == "0" ? temp = temp.slice(0, -2) : null;
+    temp == "NaN" && tempF.length > 1 ? temp = "oops" : null;
+    tempF == "." || tempF == "-" || tempF == "-." ? temp = "" : null;
+    this.setState({temp});
   }
 
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TextInput
-          style={{
-            backgroundColor: 'lightgrey',
-            flex: 1,
-            fontSize: 72,
-            textAlign: 'center',
-            width: 200,
-          }}
-          keyboardType='numeric'
-          onChangeText={(temp) => temp == '' ? this.setState({temp}) : this.calculate(temp)}
-        />
-      <Text style={{
-        flex: 1,
-        fontSize: 72,
-        textAlign: 'center',
-        width: 200,
-      }}>
-        {this.state.temp}
-      </Text>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <TextInput
+            style={{
+              flex: 4,
+              fontSize: 72,
+              textAlign: 'center',
+            }}
+            keyboardType='numeric'
+            onChangeText={(temp) => temp == '' ? this.setState({temp}) : this.calculate(temp)}
+            />
+          <Text
+            style={{
+              flex: 1,
+              fontSize: 72,
+              textAlign: 'center',
+            }}>
+            F
+          </Text>
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text style={{
+              backgroundColor: 'lightgrey',
+              flex: 4,
+              fontSize: 72,
+              textAlign: 'center',
+            }}>
+            {this.state.temp}
+          </Text>
+          <Text
+            style={{
+              flex: 1,
+              fontSize: 72,
+              textAlign: 'center',
+            }}>
+            C
+          </Text>
+        </View>
       <View style={{ flex: 3 }}>
       </View>
       </View>
