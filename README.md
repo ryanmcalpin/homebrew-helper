@@ -13,7 +13,6 @@ A collection of tools to help with homebrewing beer, cider, mead, and wine. Made
 * Download the app Expo and scan the QR code from your terminal
 
 ## Development
-* F/C Calculator UI
 * ABV Calculator
 
 ## Legal
