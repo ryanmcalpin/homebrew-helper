@@ -2,11 +2,16 @@ import React from 'react';
 import { Alert, Button, ActivityIndicator, ScrollView, Text, TextInput, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+// Temp Conversion
 var memoryTempC = "";
 var memoryTempF = "";
 
-export class HomeScreen extends React.Component {
+// ABV Calculator
+var memoryOG = "1.052";
+var memorySG = "1.01";
+var memoryABV = "5.51";
 
+export class HomeScreen extends React.Component {
   render(){
     return(
       <ScrollView style={{flex: 1, paddingTop: 20}}>
@@ -15,8 +20,8 @@ export class HomeScreen extends React.Component {
           title="F/C Conversion"
         />
         <Button
-          onPress={() => this.props.navigation.navigate('AnotherOne')}
-          title="Another One"
+          onPress={() => this.props.navigation.navigate('ABVCalculator')}
+          title="ABV Calculator"
         />
       </ScrollView>
     );
@@ -88,11 +93,84 @@ class TempConversionScreen extends React.Component {
   }
 }
 
-class AnotherOneScreen extends React.Component {
+class ABVCalculatorScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {abv: memoryABV};
+  }
+
+  calculate() {
+    let abv = ((memoryOG - memorySG) * 131.25).toFixed(2);
+    this.setState({abv});
+    memoryABV = abv;
+  }
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Another One!</Text>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text
+            style={{
+              flex: 3,
+              fontSize: 60,
+              textAlign: 'center',
+            }}>
+            OG:
+          </Text>
+          <TextInput
+            style={{
+              flex: 6,
+              fontSize: 60,
+              textAlign: 'center',
+            }}
+            defaultValue={memoryOG}
+            keyboardType='numeric'
+            maxLength={5}
+            onChangeText={(og) => { memoryOG = og; this.calculate() }}
+            />
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text
+            style={{
+              flex: 3,
+              fontSize: 60,
+              textAlign: 'center',
+            }}>
+            SG:
+          </Text>
+          <TextInput
+            style={{
+              flex: 6,
+              fontSize: 60,
+              textAlign: 'center',
+            }}
+            defaultValue={memorySG}
+            keyboardType='numeric'
+            maxLength={5}
+            onChangeText={(sg) => { memorySG = sg; this.calculate() }}
+            />
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text
+            style={{
+              flex: 4,
+              fontSize: 60,
+              textAlign: 'center',
+            }}>
+            ABV:
+          </Text>
+          <Text
+            style={{
+              flex: 5,
+              fontSize: 60,
+              textAlign: 'center',
+            }}>
+            {this.state.abv}%
+          </Text>
+
+        </View>
+      <View style={{ flex: 3 }}>
+      </View>
       </View>
     );
   }
@@ -101,7 +179,7 @@ class AnotherOneScreen extends React.Component {
 const RootStack = createStackNavigator({
   Home: HomeScreen,
   TempConversion: TempConversionScreen,
-  AnotherOne: AnotherOneScreen,
+  ABVCalculator: ABVCalculatorScreen,
 },
 {
   initialRouteName: 'Home',
