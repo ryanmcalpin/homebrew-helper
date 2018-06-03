@@ -12,6 +12,10 @@ var memorySG = "1.01";
 var memoryABV = "5.51";
 
 export class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Homebrew Helper'
+  }
+
   render(){
     return(
       <ScrollView style={{flex: 1, paddingTop: 20}}>
@@ -29,6 +33,10 @@ export class HomeScreen extends React.Component {
 }
 
 class TempConversionScreen extends React.Component {
+  static navigationOptions = {
+    title: 'F/C Conversion'
+  }
+
   constructor(props) {
     super(props);
     this.state = {temp: memoryTempC};
@@ -94,6 +102,10 @@ class TempConversionScreen extends React.Component {
 }
 
 class ABVCalculatorScreen extends React.Component {
+  static navigationOptions = {
+    title: 'ABV Calculator'
+  }
+
   constructor(props) {
     super(props);
     this.state = {abv: memoryABV};
