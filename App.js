@@ -2,14 +2,12 @@ import React from 'react';
 import { Alert, Button, ActivityIndicator, ScrollView, Text, TextInput, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+var memoryTempC = "";
+var memoryTempF = "";
+
 export class HomeScreen extends React.Component {
 
-  _onPressButton() {
-    Alert.alert('Okaaaaeee')
-  }
-
   render(){
-
     return(
       <ScrollView style={{flex: 1, paddingTop: 20}}>
         <Button
@@ -28,7 +26,7 @@ export class HomeScreen extends React.Component {
 class TempConversionScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {temp: ''};
+    this.state = {temp: memoryTempC};
   }
 
   calculate(tempF) {
@@ -37,6 +35,8 @@ class TempConversionScreen extends React.Component {
     temp == "NaN" && tempF.length > 1 ? temp = "oops!" : null;
     tempF == "." || tempF == "-" || tempF == "-." ? temp = "" : null;
     this.setState({temp});
+    memoryTempC = temp;
+    memoryTempF = tempF;
   }
 
   render() {
@@ -49,6 +49,7 @@ class TempConversionScreen extends React.Component {
               fontSize: 72,
               textAlign: 'center',
             }}
+            defaultValue={memoryTempF}
             keyboardType='numeric'
             maxLength={5}
             onChangeText={(temp) => temp == '' ? this.setState({temp}) : this.calculate(temp)}
