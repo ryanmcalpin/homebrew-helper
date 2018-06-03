@@ -20,8 +20,8 @@ export class HomeScreen extends React.Component {
     return(
       <ScrollView style={{flex: 1, paddingTop: 20}}>
         <Button
-          onPress={() => this.props.navigation.navigate('TempConversion')}
-          title="F/C Conversion"
+          onPress={() => this.props.navigation.navigate('TempConverter')}
+          title="F/C Converter"
         />
         <Button
           onPress={() => this.props.navigation.navigate('ABVCalculator')}
@@ -32,7 +32,7 @@ export class HomeScreen extends React.Component {
   }
 }
 
-class TempConversionScreen extends React.Component {
+class TempConverterScreen extends React.Component {
   static navigationOptions = {
     title: 'F/C Conversion'
   }
@@ -190,7 +190,7 @@ class ABVCalculatorScreen extends React.Component {
 
 const RootStack = createStackNavigator({
   Home: HomeScreen,
-  TempConversion: TempConversionScreen,
+  TempConverter: TempConverterScreen,
   ABVCalculator: ABVCalculatorScreen,
 },
 {
