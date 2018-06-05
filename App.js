@@ -22,11 +22,11 @@ export class HomeScreen extends React.Component {
         <Button
           onPress={() => this.props.navigation.navigate('TempConverter')}
           title="F/C Converter"
-        />
+        ></Button>
         <Button
           onPress={() => this.props.navigation.navigate('ABVCalculator')}
           title="ABV Calculator"
-        />
+        ></Button>
       </ScrollView>
     );
   }
@@ -39,17 +39,35 @@ class TempConverterScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {temp: memoryTempC};
+    this.state = {
+      tempC: memoryTempC,
+      tempF: memoryTempF,
+    };
   }
 
-  calculate(tempF) {
-    let temp = ((tempF - 32) / 1.8).toFixed(1);
-    temp.slice(-1) == "0" ? temp = temp.slice(0, -2) : null;
-    temp == "NaN" && tempF.length > 1 ? temp = "oops!" : null;
-    tempF == "." || tempF == "-" || tempF == "-." ? temp = "" : null;
-    this.setState({temp});
-    memoryTempC = temp;
-    memoryTempF = tempF;
+  calculate(tempInput, f2C) {
+    if(tempInput == "") {
+      let tempC = "";
+      let tempF = "";
+      f2C ? this.setState({tempC}) : this.setState({tempF});
+      return;
+    }
+    let tempOutput;
+    f2C ? tempOutput = ((tempInput - 32) / 1.8).toFixed(1) : tempOutput = (tempInput * 1.8 + 32).toFixed(1);
+    tempOutput.slice(-1) == "0" ? tempOutput = tempOutput.slice(0, -2) : null;
+    tempOutput == "NaN" && tempInput.length > 1 ? tempOutput = "oops!" : null;
+    tempInput == "." || tempInput == "-" || tempInput == "-." ? tempOutput= "" : null;
+    if(f2C) {
+      let tempC = tempOutput;
+      this.setState({tempC});
+      memoryTempC = tempOutput;
+      memoryTempF = tempInput;
+    } else {
+      let tempF = tempOutput;
+      this.setState({tempF});
+      memoryTempC = tempInput;
+      memoryTempF = tempOutput;
+    }
   }
 
   render() {
@@ -62,10 +80,10 @@ class TempConverterScreen extends React.Component {
               fontSize: 72,
               textAlign: 'center',
             }}
-            defaultValue={memoryTempF}
+            defaultValue={this.state.tempF}
             keyboardType='numeric'
             maxLength={5}
-            onChangeText={(temp) => temp == '' ? this.setState({temp}) : this.calculate(temp)}
+            onChangeText={(tempF) => this.calculate(tempF, true)}
             />
           <Text
             style={{
@@ -77,14 +95,17 @@ class TempConverterScreen extends React.Component {
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{
+          <TextInput style={{
               backgroundColor: 'lightgrey',
               flex: 6,
               fontSize: 72,
               textAlign: 'center',
-            }}>
-            {this.state.temp}
-          </Text>
+            }}
+            defaultValue={this.state.tempC}
+            keyboardType='numeric'
+            maxLength={5}
+            onChangeText={(tempC) => this.calculate(tempC, false)}
+          />
           <Text
             style={{
               flex: 2,
