@@ -14,7 +14,7 @@ A collection of tools to help with homebrewing beer, cider, mead, and wine. Made
 
 ## Development
 * ABV Calculator - add toggle for SG/Plato
-* F/C Converter - add toggle for F>C/C>F or make both fields TextInputs with two-way binding
+* F/C Converter - add responsive font size
 
 ## Legal
 Copyright (c) 2018 Copyright Ryan McAlpin, All Rights Reserved.<br>
