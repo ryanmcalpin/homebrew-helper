@@ -49,7 +49,10 @@ class TempConverterScreen extends React.Component {
     if(tempInput == "") {
       let tempC = "";
       let tempF = "";
-      f2C ? this.setState({tempC}) : this.setState({tempF});
+      this.setState({tempC})
+      this.setState({tempF});
+      memoryTempC = "";
+      memoryTempF = "";
       return;
     }
     let tempOutput;
