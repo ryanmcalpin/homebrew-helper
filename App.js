@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, ActivityIndicator, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Button, ActivityIndicator, ScrollView, Switch, Text, TextInput, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // Temp Conversion
@@ -132,13 +132,23 @@ class ABVCalculatorScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {abv: memoryABV};
+    this.state = {
+      abv: memoryABV,
+      switchValue: false
+    };
+
+    this._handleToggleSwitch = this._handleToggleSwitch.bind(this);
   }
 
   calculate() {
     let abv = ((memoryOG - memorySG) * 131.25).toFixed(2);
     this.setState({abv});
     memoryABV = abv;
+  }
+
+  _handleToggleSwitch(value) {
+    let switchValue = !this.state.switchValue;
+    this.setState({ switchValue })
   }
 
   render() {
@@ -204,6 +214,31 @@ class ABVCalculatorScreen extends React.Component {
             {this.state.abv}%
           </Text>
 
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text
+            style={{
+              flex: 1,
+              fontSize: 16,
+              textAlign: 'center'
+            }}>
+            SG (1.xxx)
+          </Text>
+          <Switch
+            onValueChange={(value) => this._handleToggleSwitch(value)}
+            style={{
+              flex: 1
+            }}
+            value={this.state.switchValue}
+            />
+          <Text
+            style={{
+              flex: 1,
+              fontSize: 16,
+              textAlign: 'center'
+            }}>
+            Plato &#176;P
+          </Text>
         </View>
       <View style={{ flex: 3 }}>
       </View>
