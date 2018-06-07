@@ -151,6 +151,14 @@ class ABVCalculatorScreen extends React.Component {
     this.setState({ switchValue })
   }
 
+  getSwitchColor(isPlato) {
+    if (isPlato) {
+      return this.state.switchValue ? 'black' : 'grey';
+    } else {
+      return this.state.switchValue ? 'grey' : 'black';
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -215,27 +223,30 @@ class ABVCalculatorScreen extends React.Component {
           </Text>
 
         </View>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Text
             style={{
               flex: 1,
-              fontSize: 16,
-              textAlign: 'center'
+              color: this.getSwitchColor(false),
+              fontSize: 24,
+              textAlign: 'right'
             }}>
             SG (1.xxx)
           </Text>
           <Switch
+            onTintColor='lightgrey'
             onValueChange={(value) => this._handleToggleSwitch(value)}
-            style={{
-              flex: 1
-            }}
+            style={{ }}
+            thumbTintColor='black'
+            tintColor='lightgrey'
             value={this.state.switchValue}
             />
           <Text
             style={{
               flex: 1,
-              fontSize: 16,
-              textAlign: 'center'
+              color: this.getSwitchColor(true),
+              fontSize: 24,
+              textAlign: 'left'
             }}>
             Plato &#176;P
           </Text>
