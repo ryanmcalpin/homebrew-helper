@@ -8,8 +8,9 @@ var memoryTempF = "";
 
 // ABV Calculator
 var memoryOG = "1.052";
-var memorySG = "1.01";
+var memorySG = "1.012";
 var memoryABV = "5.51";
+var memorySwitchValue = false;
 
 export class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -134,14 +135,13 @@ class ABVCalculatorScreen extends React.Component {
     super(props);
     this.state = {
       abv: memoryABV,
-      switchValue: false
+      switchValue: memorySwitchValue
     };
-
     this._handleToggleSwitch = this._handleToggleSwitch.bind(this);
   }
 
   calculate() {
-    let abv = ((memoryOG - memorySG) * 131.25).toFixed(2);
+    let abv = this.state.switchValue ? ((this.toSG(memoryOG) - this.toSG(memorySG)) * 131.25).toFixed(2) : ((memoryOG - memorySG) * 131.25).toFixed(2);
     this.setState({abv});
     memoryABV = abv;
   }
@@ -149,6 +149,22 @@ class ABVCalculatorScreen extends React.Component {
   _handleToggleSwitch(value) {
     let switchValue = !this.state.switchValue;
     this.setState({ switchValue })
+    memorySwitchValue = switchValue;
+    if (switchValue) {
+      memoryOG = this.toPlato(memoryOG);
+      memorySG = this.toPlato(memorySG);
+    } else {
+      memoryOG = this.toSG(memoryOG);
+      memorySG = this.toSG(memorySG);
+    }
+  }
+
+  toPlato(sg) {
+    return ((sg * 1000 - 1000) / 4).toFixed(2)
+  }
+
+  toSG(plato) {
+    return ((plato * 4 + 1000) / 1000).toFixed(4)
   }
 
   getSwitchColor(isPlato) {
