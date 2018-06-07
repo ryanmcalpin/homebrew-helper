@@ -236,7 +236,7 @@ class ABVCalculatorScreen extends React.Component {
           <Switch
             onTintColor='lightgrey'
             onValueChange={(value) => this._handleToggleSwitch(value)}
-            style={{ }}
+            style={{ marginLeft: 8, marginRight: 8 }}
             thumbTintColor='black'
             tintColor='lightgrey'
             value={this.state.switchValue}
