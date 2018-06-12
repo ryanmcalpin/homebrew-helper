@@ -84,6 +84,7 @@ class TempConverterScreen extends React.Component {
               fontSize: 72,
               textAlign: 'center',
             }}
+            autoFocus={true}
             defaultValue={this.state.tempF}
             keyboardType='numeric'
             maxLength={5}
@@ -100,7 +101,7 @@ class TempConverterScreen extends React.Component {
         </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <TextInput style={{
-              backgroundColor: 'lightgrey',
+              // backgroundColor: 'lightgrey',
               flex: 6,
               fontSize: 72,
               textAlign: 'center',
@@ -193,6 +194,7 @@ class ABVCalculatorScreen extends React.Component {
               fontSize: 60,
               textAlign: 'center',
             }}
+            autoFocus={true}
             defaultValue={memoryOG}
             keyboardType='numeric'
             maxLength={5}
@@ -250,9 +252,12 @@ class ABVCalculatorScreen extends React.Component {
             SG (1.xxx)
           </Text>
           <Switch
+            style={{
+              marginLeft: 8,
+              marginRight: 8
+            }}
             onTintColor='lightgrey'
             onValueChange={(value) => this._handleToggleSwitch(value)}
-            style={{ marginLeft: 8, marginRight: 8 }}
             thumbTintColor='black'
             tintColor='lightgrey'
             value={this.state.switchValue}
