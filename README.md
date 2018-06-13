@@ -13,8 +13,9 @@ A collection of tools to help with homebrewing beer, cider, mead, and wine. Made
 * Download the app Expo and scan the QR code from your terminal
 
 ## Development
-* ABV Calculator - add toggle for SG/Plato
+* ABV Calculator - add plato conversion on text change, cleanup conversion and formatting logic to only format the displayed temp
 * F/C Converter - add responsive font size
+* Add IBU Calculator
 
 ## Legal
 Copyright (c) 2018 Copyright Ryan McAlpin, All Rights Reserved.<br>
