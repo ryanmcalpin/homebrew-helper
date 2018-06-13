@@ -138,7 +138,7 @@ class ABVCalculatorScreen extends React.Component {
       abv: memoryABV,
       switchValue: memorySwitchValue
     };
-    this._handleToggleSwitch = this._handleToggleSwitch.bind(this);
+    this.toggleSwitch = this.toggleSwitch.bind(this);
   }
 
   calculate() {
@@ -147,7 +147,7 @@ class ABVCalculatorScreen extends React.Component {
     memoryABV = abv;
   }
 
-  _handleToggleSwitch(value) {
+  toggleSwitch() {
     let switchValue = !this.state.switchValue;
     this.setState({ switchValue })
     memorySwitchValue = switchValue;
@@ -161,11 +161,19 @@ class ABVCalculatorScreen extends React.Component {
   }
 
   toPlato(sg) {
-    return ((sg * 1000 - 1000) / 4).toFixed(2)
+    let plato = ((sg * 1000 - 1000) / 4).toFixed(2);
+    return this.format(plato);
   }
 
   toSG(plato) {
-    return ((plato * 4 + 1000) / 1000).toFixed(4)
+    return ((plato * 4 + 1000) / 1000).toFixed(3);
+  }
+
+  format(temp) {
+    let tempFormatted = temp;
+    temp.slice(-1) == "0" ? tempFormatted = temp.slice(0, -1) : null;
+    tempFormatted.slice(-1) == "0" ? tempFormatted = tempFormatted.slice(0, -2) : null;
+    return tempFormatted;
   }
 
   getSwitchColor(isPlato) {
@@ -257,7 +265,7 @@ class ABVCalculatorScreen extends React.Component {
               marginRight: 8
             }}
             onTintColor='lightgrey'
-            onValueChange={(value) => this._handleToggleSwitch(value)}
+            onValueChange={() => this.toggleSwitch()}
             thumbTintColor='black'
             tintColor='lightgrey'
             value={this.state.switchValue}
